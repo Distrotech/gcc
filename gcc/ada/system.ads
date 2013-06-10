@@ -39,11 +39,6 @@
 --  "proper" System, and since the compiler itself does not care about most
 --  System parameters, this generic version works fine.
 
-pragma Restrictions (No_Implicit_Dynamic_Code);
---  We want to avoid trampolines in the compiler, so it can be used in systems
---  which prevent execution of code on the stack, e.g. in windows environments
---  with DEP (Data Execution Protection) enabled.
-
 package System is
    pragma Pure;
    --  Note that we take advantage of the implementation permission to make

@@ -23,6 +23,7 @@ SHELL = @SHELL@
 srcdir = @srcdir@
 libdir = @libdir@
 build = @build@
+host = @host_cpu@-@host_os@
 target = @target@
 prefix = @prefix@
 INSTALL = @INSTALL@
@@ -108,9 +109,9 @@ TOOLS_FLAGS_TO_PASS_CROSS= \
 	"exeext=$(exeext)" \
 	"fsrcdir=$(fsrcdir)" \
 	"srcdir=$(fsrcdir)" \
-	"GNATMAKE=gnatmake" \
-	"GNATLINK=gnatlink" \
-	"GNATBIND=gnatbind" \
+	"GNATMAKE=$(host)-gnatmake" \
+	"GNATLINK=$(host)-gnatlink" \
+	"GNATBIND=$(host)-gnatbind" \
 	"TOOLSCASE=cross" \
 	"LIBGNAT="
 
@@ -183,7 +184,7 @@ regnattools: $(GCC_DIR)/stamp-gnatlib-rts
 # put the host RTS dir first in the PATH to hide the default runtime
 # files that are among the sources
 # FIXME: This should be done in configure.
-RTS_DIR:=$(strip $(subst \,/,$(shell gnatls -v | grep adalib )))
+RTS_DIR:=$(strip $(subst \,/,$(shell $(host)-gnatls -v | grep adalib )))
 gnattools-cross: $(GCC_DIR)/stamp-tools
 	# gnattools1-re
 	$(MAKE) -C $(GCC_DIR)/ada/tools -f ../Makefile \
