@@ -1165,7 +1165,7 @@ else !NATIVE
 
 ecjx_LINK = $(GCJ_FOR_ECJX_LINK) $(ecjx_LDFLAGS)
 ecjx_LDFLAGS = $(ECJX_BASE_FLAGS) $(ECJ_BUILD_JAR)
-ecjx_LDADD = 
+ecjx_LDADD = -lgcj
 ecjx_DEPENDENCIES = 
 ecjx.$(OBJEXT): ecjx.cc
 	$(GCC_FOR_ECJX) -c $<
