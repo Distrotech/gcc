@@ -56,12 +56,12 @@ enum processor_vendor
 
 enum processor_types
 {
-  INTEL_ATOM = 1,
+  INTEL_BONNELL = 1,
   INTEL_CORE2,
   INTEL_COREI7,
   AMDFAM10H,
   AMDFAM15H,
-  INTEL_SLM,
+  INTEL_SILVERMONT,
   CPU_TYPE_MAX
 };
 
@@ -70,6 +70,8 @@ enum processor_subtypes
   INTEL_COREI7_NEHALEM = 1,
   INTEL_COREI7_WESTMERE,
   INTEL_COREI7_SANDYBRIDGE,
+  INTEL_COREI7_IVYBRIDGE,
+  INTEL_COREI7_HASWELL,
   AMDFAM10H_BARCELONA,
   AMDFAM10H_SHANGHAI,
   AMDFAM10H_ISTANBUL,
@@ -167,13 +169,13 @@ get_intel_cpu (unsigned int family, unsigned int model, unsigned int brand_id)
 	    {
 	    case 0x1c:
 	    case 0x26:
-	      /* Atom.  */
-	      __cpu_model.__cpu_type = INTEL_ATOM;
+	      /* Bonnell.  */
+	      __cpu_model.__cpu_type = INTEL_BONNELL;
 	      break;
 	    case 0x37:
 	    case 0x4d:
 	      /* Silvermont.  */
-	      __cpu_model.__cpu_type = INTEL_SLM;
+	      __cpu_model.__cpu_type = INTEL_SILVERMONT;
 	      break;
 	    case 0x1a:
 	    case 0x1e:
@@ -195,6 +197,19 @@ get_intel_cpu (unsigned int family, unsigned int model, unsigned int brand_id)
 	      /* Sandy Bridge.  */
 	      __cpu_model.__cpu_type = INTEL_COREI7;
 	      __cpu_model.__cpu_subtype = INTEL_COREI7_SANDYBRIDGE;
+	      break;
+	    case 0x3a:
+	    case 0x3e:
+	      /* Ivy Bridge.  */
+	      __cpu_model.__cpu_type = INTEL_COREI7;
+	      __cpu_model.__cpu_subtype = INTEL_COREI7_IVYBRIDGE;
+	      break;
+	    case 0x3c:
+	    case 0x45:
+	    case 0x46:
+	      /* Haswell.  */
+	      __cpu_model.__cpu_type = INTEL_COREI7;
+	      __cpu_model.__cpu_subtype = INTEL_COREI7_HASWELL;
 	      break;
 	    case 0x17:
 	    case 0x1d:
