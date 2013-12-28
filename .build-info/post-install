@@ -21,4 +21,17 @@ if [ "${NARCH}" == "x86_64" ] || [ "${NARCH}" == "x86_32" ];then
 
   mkdir -p ${3}/usr/lib64/x86_64
   rsync -avP --remove-source-files ${3}/usr/lib64/{*.a,*.la,*.so.*,*.so} ${3}/usr/lib64/x86_64/
+
+  for gcclib in ${MLIBDIRLN};do
+    if [ -e ${3}/usr/lib/i686/${gcclib} ];then
+      ln -s ${3}/usr/lib/i686/${gcclib} ${3}/usr/lib/
+    fi;
+    if [ -e ${3}/usr/libx32/i686/${gcclib} ];then
+      ln -s ${3}/usr/libx32/i686/${gcclib} ${3}/usr/libx32/
+    fi;
+    if [ -e ${3}/usr/lib64/86_64/${gcclib} ];then
+      ln -s ${3}/usr/lib64/x86_64/${gcclib} ${3}/usr/lib64/
+    fi;
+  done
 fi;
+
