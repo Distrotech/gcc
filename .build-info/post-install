@@ -12,7 +12,7 @@ if [ -x ${3}/usr/bin/gcc ] && [ ! -e ${3}/usr/bin/cc ];then
 fi;
 
 #Fixup multilib dirs
-if [ "${NARCH}" == "x86_64" ] || [ "${NARCH}" == "x86_32" ];then
+if [ "${1}" == "x86_64" ] || [ "${1}" == "x86_32" ];then
   mkdir -p ${3}/usr/lib/i686
   rsync -avP --remove-source-files ${3}/usr/lib/{*.a,*.la,*.so.*,*.so} ${3}/usr/lib/i686/
 
