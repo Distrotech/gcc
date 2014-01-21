@@ -74,6 +74,11 @@
 #define _GLIBCXX_CDTOR_CALLABI __thiscall
 #endif
 
+#include <_mingw_mac.h>
+#if !defined (__MINGW64_VERSION_MAJOR) || (__MINGW64_VERSION_MAJOR < 3)
+#define _GLIBCXX_HAVE_BROKEN_VSWPRINTF 1
+#endif
+
 #ifdef __x86_64__
 #define _GLIBCXX_LLP64 1
 #endif
