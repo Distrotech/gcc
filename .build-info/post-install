@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ -x ${3}/usr/bin/cpp ] && [ ! -e ${3}/lib/cpp ];then
+  if [ ! -d ${3}/lib ];then
+    mkdir -p ${3}/lib
+  fi;
+  ln -s -r  ${3}/usr/bin/cpp ${3}/lib/cpp
+fi;
+
+if [ -x ${3}/usr/bin/gcc ] && [ ! -e ${3}/usr/bin/cc ];then
+  ln -s gcc ${3}/usr/bin/cc
+fi;
+
+#Fixup multilib dirs
+if [ "${1}" == "x86_64" ] || [ "${1}" == "x86_32" ];then
+  mkdir -p ${3}/usr/lib/i686
+  rsync -avP --remove-source-files ${3}/usr/lib/{*.a,*.la,*.so.*,*.so} ${3}/usr/lib/i686/
+
+  mkdir -p ${3}/usr/libx32/i686
+  rsync -avP --remove-source-files ${3}/usr/libx32/{*.a,*.la,*.so.*,*.so} ${3}/usr/libx32/i686/
+
+  mkdir -p ${3}/usr/lib64/x86_64
+  rsync -avP --remove-source-files ${3}/usr/lib64/{*.a,*.la,*.so.*,*.so} ${3}/usr/lib64/x86_64/
+
+  for gcclib in ${MLIBDIRLN};do
+    if [ -e ${3}/usr/lib/i686/${gcclib} ] && [ ! -e ${3}/usr/lib/${gcclib} ];then
+      ln -sr ${3}/usr/lib/i686/${gcclib} ${3}/usr/lib/
+    fi;
+    if [ -e ${3}/usr/libx32/i686/${gcclib} ] && [ ! -e ${3}/usr/libx32/${gcclib} ];then
+      ln -sr ${3}/usr/libx32/i686/${gcclib} ${3}/usr/libx32/
+    fi;
+    if [ -e ${3}/usr/lib64/x86_64/${gcclib} ] && [ ! -e ${3}/usr/lib64/${gcclib} ];then
+      ln -sr ${3}/usr/lib64/x86_64/${gcclib} ${3}/usr/lib64/
+    fi;
+  done
+fi;
+
