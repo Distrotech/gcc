@@ -343,6 +343,14 @@ ifeq ($(strip $(filter-out %x86_64, $(target_cpu))),)
   else
     ifeq ($(strip $(MULTISUBDIR)),/x32)
       target_cpu:=x32
+    else
+      ifeq ($(strip $(MULTISUBDIR)),/64)
+        target_cpu:=x86_64
+      else
+        ifeq ($(target_os),linux-gnux32)
+          target_cpu:=x32
+        endif
+      endif
     endif
   endif
 endif
