@@ -11631,9 +11631,9 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-if test -n "${with_target_subdir}"; then
-  WARN_FLAGS="$WARN_FLAGS -Werror"
-fi
+#if test -n "${with_target_subdir}"; then
+#  WARN_FLAGS="$WARN_FLAGS -Werror"
+#fi
 
 
 
