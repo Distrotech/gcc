@@ -11614,9 +11614,9 @@ fi
 CFLAGS="$save_CFLAGS"
 
 
-if test -n "${with_target_subdir}"; then
-  WARN_FLAGS="$WARN_FLAGS -Werror"
-fi
+#if test -n "${with_target_subdir}"; then
+#  WARN_FLAGS="$WARN_FLAGS -Werror"
+#fi
 
 
 
