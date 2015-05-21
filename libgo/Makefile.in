@@ -428,7 +428,8 @@ STRUCT_EPOLL_EVENT_FD_OFFSET = @STRUCT_EPOLL_EVENT_FD_OFFSET@
 USE_DEJAGNU = @USE_DEJAGNU@
 VERSION = @VERSION@
 WARN_FLAGS = @WARN_FLAGS@
-WERROR = @WERROR@
+WERROR =
+#@WERROR@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
