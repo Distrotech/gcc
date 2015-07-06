@@ -24,6 +24,15 @@ proc make_pattern_printable { pattern } {
     return [string map {\t \\t \n \\n \r \\r \\ \\\\} $pattern]
 }
 
+# Transform a symbol into its ELF .type directive pattern.
+proc make_pattern_elf_type { pattern } {
+    if [string match "\[a-zA-Z\]*" $pattern] {
+	return ".type\[^\\n\]*$pattern, \(%|@\)\(function|object\)"
+    } else {
+	return "$pattern"
+    }
+}
+
 # Scan the OUTPUT_FILE for a pattern.  If it is present and POSITIVE
 # is non-zero, or it is not present and POSITIVE is zero, the test
 # passes.  The ORIG_ARGS is the list of arguments provided by dg-final
@@ -230,6 +239,7 @@ proc scan-assembler-times { args } {
 
     set testcase [testname-for-summary]
     set pattern [lindex $args 0]
+    set pattern_elf_type [make_pattern_elf_type $pattern]
     set pp_pattern [make_pattern_printable $pattern]
 
     # This must match the rule in gcc-dg.exp.
@@ -246,7 +256,12 @@ proc scan-assembler-times { args } {
     set text [read $fd]
     close $fd
 
-    if { [llength [regexp -inline -all -- $pattern $text]] == [lindex $args 1]} {
+    set total_lines [llength [regexp -inline -all -- $pattern $text]]
+    set elf_type_lines [llength [regexp -inline -all -- $pattern_elf_type $text]]
+    set lines [expr $total_lines - $elf_type_lines]
+    set expected_lines [lindex $args 1]
+
+    if { $lines == $expected_lines } {
 	pass "$testcase scan-assembler-times $pp_pattern [lindex $args 1]"
     } else {
 	fail "$testcase scan-assembler-times $pp_pattern [lindex $args 1]"
