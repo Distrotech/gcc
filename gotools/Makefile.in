@@ -259,7 +259,7 @@ LIBGODEP = $(libgodir)/libgo.la
 @NATIVE_TRUE@GOCOMPILER = $(GOC_FOR_TARGET) $(XGCC_FLAGS_FOR_TARGET)
 GOCOMPILE = $(GOCOMPILER) $(GOCFLAGS)
 AM_LDFLAGS = -L $(libgodir) -L $(libgodir)/.libs
-GOLINK = $(GOCOMPILER) $(GOCFLAGS) $(AM_GOCFLAGS) $(LDFLAGS) $(AM_LDFLAGS) -o $@
+GOLINK = $(GOCOMPILER) $(GOCFLAGS) $(AM_GOCFLAGS) -lgcc_s $(LDFLAGS) $(AM_LDFLAGS) -o $@
 cmdsrcdir = $(srcdir)/../libgo/go/cmd
 go_cmd_go_files = \
 	$(cmdsrcdir)/go/alldocs.go \
