@@ -24,13 +24,13 @@ if [ "${1}" == "x86_64" ] || [ "${1}" == "x86_32" ];then
 
   for gcclib in ${MLIBDIRLN};do
     if [ -e ${3}/usr/lib/i686/${gcclib} ] && [ ! -e ${3}/usr/lib/${gcclib} ];then
-      ln -s ${3}/usr/lib/i686/${gcclib} ${3}/usr/lib/
+      ln -sr ${3}/usr/lib/i686/${gcclib} ${3}/usr/lib/
     fi;
     if [ -e ${3}/usr/libx32/i686/${gcclib} ] && [ ! -e ${3}/usr/libx32/${gcclib} ];then
-      ln -s ${3}/usr/libx32/i686/${gcclib} ${3}/usr/libx32/
+      ln -sr ${3}/usr/libx32/i686/${gcclib} ${3}/usr/libx32/
     fi;
     if [ -e ${3}/usr/lib64/x86_64/${gcclib} ] && [ ! -e ${3}/usr/lib64/${gcclib} ];then
-      ln -s ${3}/usr/lib64/x86_64/${gcclib} ${3}/usr/lib64/
+      ln -sr ${3}/usr/lib64/x86_64/${gcclib} ${3}/usr/lib64/
     fi;
   done
 fi;
